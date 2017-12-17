@@ -58,13 +58,13 @@
 
         //define your year format here, first for the x scale, then if the date is displayed in tooltips
 
-        //var parseDate = d3.time.format("%m/%d/%y").parse; // VH
+        var parseDate = d3.time.format("%m/%d/%y").parse;
         var formatDate = d3.time.format("%b %d, '%y");
 
         //create an SVG
         var svg = d3.select("#graphic").append("svg")
                 .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
+                .attr("height", 700)//height + margin.top + margin.bottom)
                 .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -128,47 +128,21 @@
             var linedata = color.domain().map(function(name) {
                 return {name: name,
                     values: data.map(function(d) {
-                        return {name:name, Split: transformDate(d.Split), value: parseFloat(d[name],10)};
+                        return {name:name, Split: parseDate(d.Split), value: parseFloat(d[name],10)};
                     })
                 };
             });
 
-//            TODO: change to switch statement
-            function transformDate(dateOriginal) {
-                if (dateOriginal == "April/March"){
-                    return "April/March";
-                }
-                if (dateOriginal == "May"){
-                    return "May";
-                }
-                if (dateOriginal == "June"){
-                    return "June";
-                }
-                if (dateOriginal == "July"){
-                    return "July";
-                }
-                if (dateOriginal == "August"){
-                    return "August";
-                }
-                if (dateOriginal == "Sept/Oct"){
-                    return "Sept/Oct";
-                }
-
-            }
             //make an empty variable to stash the last values into so i can sort the legend
             var lastvalues=[];
 
             //setup the x and y scales
-//            var x = d3.time.scale()
-//            var x = d3.scale.linear()
-//                    .domain([
-//                        d3.min(linedata, function(c) { return d3.min(c.values, function(v) { return v.date; }); }),
-//                        d3.max(linedata, function(c) { return d3.max(c.values, function(v) { return v.date; }); })
-//                    ])
-//                    .range([0, width]);
-            var x = d3.scale.ordinal()
-                    .domain(['April/March', 'May', 'June', 'July', 'August', 'Sept/Oct'])
-                    .rangePoints([0, width]);
+            var x = d3.time.scale()
+                    .domain([
+                        d3.min(linedata, function(c) { return d3.min(c.values, function(v) { return v.Split; }); }),
+                        d3.max(linedata, function(c) { return d3.max(c.values, function(v) { return v.Split; }); })
+                    ])
+                    .range([0, width]);
 
             var y = d3.scale.linear()
                     .domain([
@@ -329,8 +303,8 @@
             //create a scale to pass the legend items through
             var legendscale= d3.scale.ordinal()
                     .domain(lastvalues)
-//                    .range([0,30,60,90,120,150,180,210]);
-                      .rangePoints([0,675]);
+                    //.range([0,30,60,90,120,150,180,210]);
+                    .rangePoints([0,500]);
 
             //actually add the circles to the created legend container
             legendEnter.append('circle')

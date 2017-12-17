@@ -29,9 +29,9 @@
     <script>
 
         //set the margins
-        var margin = {top: 50, right: 160, bottom: 80, left: 50},
+        var margin = {top: 10, right: 160, bottom: 80, left: 50},
                 width = 900 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                height = 600 - margin.top - margin.bottom;
 
         //set dek and head to be as wide as SVG
         d3.select('#dek')
@@ -329,7 +329,8 @@
             //create a scale to pass the legend items through
             var legendscale= d3.scale.ordinal()
                     .domain(lastvalues)
-                    .range([0,30,60,90,120,150,180,210]);
+//                    .range([0,30,60,90,120,150,180,210]);
+                      .rangePoints([0,675]);
 
             //actually add the circles to the created legend container
             legendEnter.append('circle')

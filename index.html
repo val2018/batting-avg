@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>Minnesota Twins Statistics</title>
 </head>
 <body>
     <link href="styles/stylesheet.css" rel="stylesheet" type="text/css">
@@ -65,7 +65,6 @@
         //define your year format here, first for the x scale, then if the date is displayed in tooltips
 
         var parseDate = d3.time.format("%m/%d/%y").parse;
-        var formatDate = d3.time.format("%b %d, '%y");
 
         //create an SVG
         var svg = d3.select("#graphic").append("svg")
@@ -94,7 +93,7 @@
                 .on("change", change);
 
         //suck in the data, store it in a value called formatted, run the redraw function
-        d3.csv("dataRB.csv", function(data) {
+        d3.csv("data.csv", function(data) {
             formatted = data;
             redraw();
         });

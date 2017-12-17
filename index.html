@@ -18,9 +18,10 @@
 
     <p id="menu" class="menuchoice">Select player: <select>
         <option value="Joe Mauer">Joe Mauer</option>
-        <option value="val2">Value 2</option>
-        <option value="val3">Value 3</option>
-        <option value="val4">Value 4</option>
+        <option value="Byron Buxton">Byron Buxton</option>
+        <option value="Brian Dozier">Brian Dozier</option>
+        <option value="Eddie Rosario">Eddie Rosario</option>
+        <option value="Minnesota Twins">Minnesota Twins</option>
     </select>
 
     <div id="graphic"> </div>
@@ -40,7 +41,7 @@
                 .style('width',width+'px');
 
         //write out your source text here
-        var sourcetext= "data1.csv";
+        var sourcetext= "dataRB.csv";
 
         // set the type of number here, n is a number with a comma, .2% will get you a percent, .2f will get you 2 decimal points
         var NumbType = d3.format(".2f");
@@ -53,7 +54,9 @@
 
         //defines a function to be used to append the title to the tooltip.  you can set how you want it to display here.
         var maketip = function (d) {
-            var tip = '<p class="tip3">' + d.name + '<p class="tip1">' + NumbType(d.value) + '</p> <p class="tip3">'+  d.Split+'</p>';
+            var dt = new Date(d.Split);
+            dt = dt.getMonth() + 1 + "/" + (dt.getFullYear());
+            var tip = '<p class="tip3">' + d.name + '<p class="tip1">' + NumbType(d.value) + '</p> <p class="tip3">'+  dt+'</p>';
             return tip;}
 
         //define your year format here, first for the x scale, then if the date is displayed in tooltips
@@ -88,7 +91,7 @@
                 .on("change", change);
 
         //suck in the data, store it in a value called formatted, run the redraw function
-        d3.csv("data1.csv", function(data) {
+        d3.csv("dataRB.csv", function(data) {
             formatted = data;
             redraw();
         });
@@ -304,7 +307,7 @@
             var legendscale= d3.scale.ordinal()
                     .domain(lastvalues)
                     //.range([0,30,60,90,120,150,180,210]);
-                    .rangePoints([0,500]);
+                    .rangePoints([0,400]);
 
             //actually add the circles to the created legend container
             legendEnter.append('circle')

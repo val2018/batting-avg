@@ -16,8 +16,8 @@
         <p class="dek">dek </p>
     </div>
 
-    <p id="menu" class="menuchoice">Select series: <select>
-        <option value="val1">Value 1</option>
+    <p id="menu" class="menuchoice">Select player: <select>
+        <option value="Joe Mauer">Joe Mauer</option>
         <option value="val2">Value 2</option>
         <option value="val3">Value 3</option>
         <option value="val4">Value 4</option>
@@ -131,7 +131,6 @@
             var linedata = color.domain().map(function(name) {
                 return {name: name,
                     values: data.map(function(d) {
-                        //return {name:name, date: parseDate(d.date), value: parseFloat(d[name],10)}; //VH
                         return {name:name, Split: transformDate(d.Split), value: parseFloat(d[name],10)};
                     })
                 };
@@ -154,8 +153,8 @@
                 if (dateOriginal == "August"){
                     return "August";
                 }
-                if (dateOriginal == "September"){
-                    return "September";
+                if (dateOriginal == "Sept/Oct"){
+                    return "Sept/Oct";
                 }
 
             }
@@ -171,7 +170,7 @@
 //                    ])
 //                    .range([0, width]);
             var x = d3.scale.ordinal()
-                    .domain(['April/March', 'May', 'June', 'July', 'August', 'September'])
+                    .domain(['April/March', 'May', 'June', 'July', 'August', 'Sept/Oct'])
                     .rangePoints([0, width]);
 
             var y = d3.scale.linear()

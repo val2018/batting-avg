@@ -11,9 +11,15 @@
     <script type="text/javascript" src="scripts/jquery.tipsy.js"></script>
 
     <div id="container">
-        <p id="headline" class="hed">Headline</p>
-        <p class="dek">dek</p>
-        <p class="dek">dek </p>
+        <h1>Minnesota Twins Player Statistics</h1>
+        <p class="description">The Minnesota Twins are an American professional baseball team based in Minneapolis, Minnesota.
+            The Twins compete in Major League Baseball as a member club of the American League Central division.
+            The team is named after the Twin Cities area comprising Minneapolis and St. Paul. The 2017 Minnesota
+            Twins season was the 57th season for the franchise in the Twin Cities of Minnesota, their 8th season
+            at Target Field, and their 117th overall in the American League. The Twins began the season on April
+            3rd at home against the Kansas City Royals and finished the year on October 1st at home against the
+            Detroit Tigers.</p>
+
     </div>
 
     <p id="menu" class="menuchoice">Select player: <select>
@@ -39,9 +45,6 @@
                 .style('width', width+'px');
         d3.select('#headline')
                 .style('width',width+'px');
-
-        //write out your source text here
-        var sourcetext= "dataRB.csv";
 
         // set the type of number here, n is a number with a comma, .2% will get you a percent, .2f will get you 2 decimal points
         var NumbType = d3.format(".2f");
@@ -385,12 +388,6 @@
     //end of the redraw function
         }
 
-        svg.append("svg:text")
-                .attr("text-anchor", "start")
-                .attr ("x", 0-margin.left)
-                .attr("y", height+margin.bottom-10)
-                .text (sourcetext)
-                .attr ("class","source")
     </script>
 </body>
 </html>

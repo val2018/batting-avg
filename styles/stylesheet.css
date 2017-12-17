@@ -27,19 +27,25 @@
     stroke-linecap:round;
 }
 
-.hed {
+body {
+    margin: 40px;
+}
+h1{
     font-family: SourceSansPro-Bold;
     font-size: 24pt;
-    margin-bottom:5px;
-    margin-top:0px;
+
 }
 
-.dek {
+.description {
     font-family: SourceSansPro-Light;
     font-size: 12pt;
-    margin-bottom:0px;
-    margin-top:0px;
+    /*margin-bottom:0px;*/
+    /*margin-top:0px;*/
+    width: 660px;
+    text-align: left;
+
 }
+
 .menuchoice {
     font-family: SourceSansPro-Light;
     font-size: 10pt;

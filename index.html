@@ -56,7 +56,7 @@
 
         //defines a function to be used to append the title to the tooltip.  you can set how you want it to display here.
         var maketip = function (d) {
-            var tip = '<p class="tip3">' + d.name + '<p class="tip1">' + NumbType(d.value) + '</p> <p class="tip3">'+  d.date+'</p>';
+            var tip = '<p class="tip3">' + d.name + '<p class="tip1">' + NumbType(d.value) + '</p> <p class="tip3">'+  d.Split+'</p>';
             return tip;}
 
         //define your year format here, first for the x scale, then if the date is displayed in tooltips
@@ -126,21 +126,21 @@
             var data = nested[series];
 
             // for object constancy we will need to set "keys", one for each type of data (column name) exclude all others.
-            color.domain(d3.keys(data[0]).filter(function(key) { return (key !== "date" && key !== "Player"); }));
+            color.domain(d3.keys(data[0]).filter(function(key) { return (key !== "Split" && key !== "Player"); }));
 
             var linedata = color.domain().map(function(name) {
                 return {name: name,
                     values: data.map(function(d) {
                         //return {name:name, date: parseDate(d.date), value: parseFloat(d[name],10)}; //VH
-                        return {name:name, date: transformDate(d.date), value: parseFloat(d[name],10)};
+                        return {name:name, Split: transformDate(d.Split), value: parseFloat(d[name],10)};
                     })
                 };
             });
 
 //            TODO: change to switch statement
             function transformDate(dateOriginal) {
-                if (dateOriginal == "April"){
-                    return "April";
+                if (dateOriginal == "April/March"){
+                    return "April/March";
                 }
                 if (dateOriginal == "May"){
                     return "May";
@@ -171,7 +171,7 @@
 //                    ])
 //                    .range([0, width]);
             var x = d3.scale.ordinal()
-                    .domain(['April', 'May', 'June', 'July', 'August', 'September'])
+                    .domain(['April/March', 'May', 'June', 'July', 'August', 'September'])
                     .rangePoints([0, width]);
 
             var y = d3.scale.linear()
@@ -183,7 +183,7 @@
 
             //will draw the line
             var line = d3.svg.line()
-                    .x(function(d) { return x(d.date); })
+                    .x(function(d) { return x(d.Split); })
                     .y(function(d) { return y(d.value); });
 
             //define the zoom
@@ -284,7 +284,7 @@
                     .enter()
                     .append("circle")
                     .attr("class","tipcircle")
-                    .attr("cx", function(d,i){return x(d.date)})
+                    .attr("cx", function(d,i){return x(d.Split)})
                     .attr("cy",function(d,i){return y(d.value)})
                     .attr("r",12)
                     .style('opacity', 1e-6)//1e-6
@@ -367,7 +367,7 @@
             thegraphUpdate.selectAll("circle")
                     .attr ("title", maketip)
                     .attr("cy",function(d,i){return y(d.value)})
-                    .attr("cx", function(d,i){return x(d.date)});
+                    .attr("cx", function(d,i){return x(d.Split)});
 
 
             // and now for legend items
@@ -400,7 +400,7 @@
                 svg.select(".y.axis").call(yAxis);
 
                 svg.selectAll(".tipcircle")
-                        .attr("cx", function(d,i){return x(d.date)})
+                        .attr("cx", function(d,i){return x(d.Split)})
                         .attr("cy",function(d,i){return y(d.value)});
 
                 svg.selectAll(".line")

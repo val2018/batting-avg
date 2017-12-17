@@ -40,7 +40,7 @@
                 .style('width',width+'px');
 
         //write out your source text here
-        var sourcetext= "dataORIG.csv";
+        var sourcetext= "data1.csv";
 
         // set the type of number here, n is a number with a comma, .2% will get you a percent, .2f will get you 2 decimal points
         var NumbType = d3.format(".2f");
@@ -52,7 +52,7 @@
         var color = d3.scale.ordinal().range(bluescale4);
 
         //define the approx. number of x scale ticks
-        var xscaleticks = 5;
+        var xscaleticks = 6;
 
         //defines a function to be used to append the title to the tooltip.  you can set how you want it to display here.
         var maketip = function (d) {
@@ -61,7 +61,7 @@
 
         //define your year format here, first for the x scale, then if the date is displayed in tooltips
 
-        var parseDate = d3.time.format("%m/%d/%y").parse; // VH
+        //var parseDate = d3.time.format("%m/%d/%y").parse; // VH
         var formatDate = d3.time.format("%b %d, '%y");
 
         //create an SVG
@@ -91,7 +91,7 @@
                 .on("change", change);
 
         //suck in the data, store it in a value called formatted, run the redraw function
-        d3.csv("dataORIG.csv", function(data) {
+        d3.csv("data1.csv", function(data) {
             formatted = data;
             redraw();
         });
@@ -131,8 +131,8 @@
             var linedata = color.domain().map(function(name) {
                 return {name: name,
                     values: data.map(function(d) {
-                        return {name:name, date: parseDate(d.date), value: parseFloat(d[name],10)}; //VH
-                        //return {name:name, date: transformDate(d.date), value: parseFloat(d[name],10)};
+                        //return {name:name, date: parseDate(d.date), value: parseFloat(d[name],10)}; //VH
+                        return {name:name, date: transformDate(d.date), value: parseFloat(d[name],10)};
                     })
                 };
             });
@@ -163,7 +163,8 @@
             var lastvalues=[];
 
             //setup the x and y scales
-            var x = d3.time.scale()
+//            var x = d3.time.scale()
+            var x = d3.scale.linear()
                     .domain([
                         d3.min(linedata, function(c) { return d3.min(c.values, function(v) { return v.date; }); }),
                         d3.max(linedata, function(c) { return d3.max(c.values, function(v) { return v.date; }); })

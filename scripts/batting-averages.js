@@ -56,8 +56,8 @@ var clip = svg.append("svg:clipPath")
     .attr("height", height);
 
 // force data to update when menu is changed
-var menu = d3.select("#menu select")
-    .on("change", change);
+// var menu = d3.select("#menu select")
+//     .on("change", change);
 
 //suck in the data, store it in a value called formatted, run the redraw function
 d3.csv("dataBA.csv", function(data) {
@@ -72,12 +72,12 @@ var altKey;
 
 // set terms of transition that will take place
 // when a new economic indicator is chosen
-function change() {
-    d3.transition()
-        .duration(altKey ? 7500 : 1500)
-        .each(redraw);
-}
-
+// function change() {
+//     d3.transition()
+//         .duration(altKey ? 7500 : 1500)
+//         .each(redraw);
+// }
+var thegraphUpdate = "";
 // all the meat goes in the redraw function
 function redraw() {
 
@@ -342,8 +342,8 @@ function redraw() {
             });
 
         // set variable for updating visualization
-        var thegraphUpdate = d3.transition(thegraph);
-
+        // var thegraphUpdate = d3.transition(thegraph);
+        thegraphUpdate = d3.transition(thegraph);
         // change values of path and then the circles to those of the new series
         thegraphUpdate.select("path")
             .attr("d", function (d, i) {

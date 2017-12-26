@@ -38,7 +38,7 @@ var parseDate = d3.time.format("%m/%d/%y").parse;
 //create an SVG
 var svg = d3.select("#graphic1").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", 700)//height + margin.top + margin.bottom)
+    .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -73,7 +73,7 @@ d3.select(window)
 var altKey;
 
 // set terms of transition that will take place
-// when a new economic indicator is chosen
+// when a new player is chosen
 function change() {
     d3.transition()
         .duration(altKey ? 7500 : 1500)
@@ -83,22 +83,30 @@ function change() {
 // all the meat goes in the redraw function
 function redraw() {
 
-    // create data nests based on economic indicator (series)
+    // create data nests based on player (series); each player is a nest;
+    // nesting allows grouping, it's like a group by in SQL
     var nested = d3.nest()
         .key(function(d) { return d.Player; })
         .map(formatted)
 
     // get value from menu selection
     // the option values are set in HTML and correspond
-    //to the [type] value we used to nest the data
+    // to the [type] value we used to nest the data
     var series = menu.property("value");
 
     // only retrieve data from the selected series, using the nest we just created
     var data = nested[series];
 
-    // for object constancy we will need to set "keys", one for each type of data (column name) exclude all others.
+    // for object constancy we will need to set "keys", one for each type of data (column name)
+    // exclude column "Split" b/c it's the date, the x-axis
+    // exclude column "Player" b/c it's what we are grouping on
+    // set the color domain; one color for each column of data, keys are column names
+    // filter takes the list as input
     color.domain(d3.keys(data[0]).filter(function(key) { return (key !== "Split" && key !== "Player"); }));
 
+    // map takes the list and does whatever is in the function to it
+    // in this case, it's returning the player's name and Split as the date
+    // TODO: fully understand this b/c it's how a player is mapped to a date
     var linedata = color.domain().map(function(name) {
         return {name: name,
             values: data.map(function(d) {

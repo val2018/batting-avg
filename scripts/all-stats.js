@@ -164,6 +164,7 @@ function redraw() {
 
     //append a g tag for each line and set of tooltip circles and give it a unique ID based on the column name of the data
     var thegraphEnter=thegraph.enter().append("g")
+        // updates dom elements
         .attr("clip-path", "url(#clip)")
         .attr("class", "thegraph")
         .attr('id',function(d){ return d.name+"-line"; })

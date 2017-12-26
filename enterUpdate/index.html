@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>D3 Example</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+
+<script>
+    // Example 67
+    var scale = d3.scale.linear()
+            .domain([1, 5])   // Data space
+            .range([0, 200]); // Pixel space
+
+    var svg = d3.select("body").append("svg")
+            .attr("width",  250)
+            .attr("height", 250);
+
+    function render(data, color){
+
+        // THIS IS A TYPICAL D3 PATTERN
+        // all of this gets executed before the browser renders it
+
+        // Bind data to all existing rect data elements on the svg
+        var rects = svg.selectAll("rect").data(data);
+
+        // Enter
+        // creates dom elements based on static values
+        // sets attributes that don't depend on the data
+        // enter only executes on new dom elements
+        // it will NOT update data elements
+        rects.enter().append("rect")
+            .attr("y", 50)
+            .attr("width",  20)
+            .attr("height", 20);
+
+        // Update
+        // data from file goes here, dynamic data
+        // sets attributes that depend on the data
+        rects
+            .attr("x", scale) // for each data element it calls the scale function and sets the "x" attribute to the return value
+            .attr("fill", color);
+
+        rects.exit().remove();
+    }
+
+    // call the function x seconds (1,2,3,4 then 5 seconds) after the page loads
+    setTimeout( function (){ render([1, 2, 2.5],     "red");    }, 1000);
+    setTimeout( function (){ render([1, 2, 3, 4, 5], "blue");   }, 2000);
+    setTimeout( function (){ render([1, 2],          "green");  }, 3000);
+    setTimeout( function (){ render([3, 4, 5],       "cyan");   }, 4000);
+    setTimeout( function (){ render([4, 5],          "magenta");}, 5000);
+
+</script>
+
+</body>
+</html>

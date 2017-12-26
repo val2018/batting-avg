@@ -2,7 +2,9 @@
  * Created by valerie on 12/17/17.
  */
 
-//set the margins
+//set the margins using Margin Convention; define the margin object
+// with properties for the four sides, clockwise from top
+// then define width and height as the inner dimensions of the chart area
 var margin = {top: 10, right: 160, bottom: 80, left: 50},
     width = 900 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
